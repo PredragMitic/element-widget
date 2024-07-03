@@ -4,7 +4,7 @@
     height: 511px;
     top: 209px;
     left: 20px;
-    margin: 20px;
+    margin: 30px 20px 15px 20px;
 }
 
 .select-item-dialog {
@@ -20,15 +20,10 @@
 .search-bar {
     color: white;
     display: flex;
-    height: 30px;
     margin-left: 20px;
-
     font-family: Roboto;
     font-size: 14px;
     font-weight: 400;
-    line-height: 16.41px;
-    text-align: left;
-
 }
 
 .filter {
@@ -45,13 +40,10 @@
     font-family: Roboto;
     font-size: 12px;
     font-weight: 400;
-    line-height: 18px;
-    text-align: left;
     color: #515151;
 }
 
 .filter>select {
-    background-color: white;
     margin: 0 20px 0 10px;
     width: 150px;
     height: 20px;
@@ -59,7 +51,41 @@
     font-family: Roboto;
     font-size: 12px;
     font-weight: 400;
-    line-height: 18px;
-    text-align: left;
     color: #515151;
+}
+
+.elements-window {
+    background: #141414;
+    width: 434px;
+    height: 266px;
+    top: 99px;
+    left: 20px;
+    margin: 20px;
+}
+
+.label-selected {
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: left;
+    color: white;
+    margin-left: 20px;
+}
+
+.buttons {
+    display: flex;
+}
+
+.buttons * {
+    background: #519F03;
+    width: 90px;
+    height: 30px;
+    top: 149px;
+    left: 20px;
+    padding: 7px 24px 7px 23px;
+    margin-left: 20px;
+}
+
+.red-button {
+    background: #9F2903;
 }

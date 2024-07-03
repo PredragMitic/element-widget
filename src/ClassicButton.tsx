@@ -1,8 +1,10 @@
 import React from 'react';
 
-const ClassicButton = (title: string) => {
+const ClassicButton = (title: string, classList?: string) => {
+    const classes = 'button '.concat(classList || '');
+
     return (
-        <button className="button"> {title} </button>
+        <button className={classes}> {title} </button>
       );
 };
 
