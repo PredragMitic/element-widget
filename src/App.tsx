@@ -7,7 +7,7 @@ import ListSelected from './ListSelected';
 const App = () => {
   return (
     <div className="App">
-      <div className="title">Select items</div>
+      <div className="select-item-title">Select items</div>
       <div className="items-count">You currently have 2 selected items.</div>
       <ListSelected />
       <div className='choice-button'> 
