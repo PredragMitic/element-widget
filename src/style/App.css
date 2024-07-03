@@ -1,0 +1,60 @@
+.App {
+  text-align: center;
+  background-color: white;
+  width: 514px;
+  height: 740px;
+  top: 864px;
+  left: 81px;
+  gap: 0px;
+  opacity: 0px;
+  box-shadow: 0px 0px 12px -2px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 23.44px;
+  text-align: left;
+  padding: 20px;
+}
+
+.items-count {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
+  margin-left: 20px;
+}
+
+.list-selected {
+  display: flex;
+  border: 1px black solid;
+  height: 30px;
+  margin: 20px;
+}
+
+.list-selected .button {
+  text-align: center;
+  background: #121212;
+  width: 142px;
+  height: 30px;
+  top: 104px;
+  left: 20px;
+  margin-right: 20px;
+}
+
+.choice-button {
+  margin: 20px;
+  display: flex;
+}
+
+.choice-button .button {
+  background: #519F03;
+  width: 162px;
+  height: 30px;
+  top: 149px;
+  left: 20px;
+  padding: 7px 24px 7px 23px;
+}
