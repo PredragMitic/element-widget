@@ -14,8 +14,8 @@ const DialogWindow = () => {
       <div className="label-selected">Current selected items:</div>
       <ListSelected />
       <div className='buttons'> 
-        {ClassicButton('Save')}
-        {ClassicButton('Cancel', 'red-button')}
+        <ClassicButton title='Save' />
+        <ClassicButton title='Cancel' classList='red-button'/>
       </div>
     </div>
   );

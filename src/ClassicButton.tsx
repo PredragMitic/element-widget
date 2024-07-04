@@ -1,10 +1,10 @@
 import React from 'react';
 
-const ClassicButton = (title: string, classList?: string) => {
-    const classes = 'button '.concat(classList || '');
+const ClassicButton = (prop: {title: string, classList?: string}) => {
+    const classes = 'button '.concat(prop.classList || '');
 
     return (
-        <button className={classes}> {title} </button>
+        <button className={classes}> {prop.title} </button>
       );
 };
 

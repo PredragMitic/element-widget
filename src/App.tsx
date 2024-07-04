@@ -11,7 +11,7 @@ const App = () => {
       <div className="items-count">You currently have 2 selected items.</div>
       <ListSelected />
       <div className='choice-button'> 
-        {ClassicButton('Change my choice')}
+        <ClassicButton title='Change my choice' />
       </div>
       <DialogWindow />
     </div>
