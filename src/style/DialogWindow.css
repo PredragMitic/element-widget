@@ -61,6 +61,29 @@
     top: 99px;
     left: 20px;
     margin: 20px;
+    overflow-y: scroll
+}
+
+.item {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    color: white;
+    font-family: Roboto;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.items-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 10px 20px;
+}
+
+.checkbox-item {
+    margin: 0;
 }
 
 .label-selected {
