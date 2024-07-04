@@ -4,8 +4,8 @@ import ClassicButton from './ClassicButton';
 const ListSelected = () => {
     return (
         <div className="list-selected">
-          <ClassicButton title='Element 5' />
-          <ClassicButton title='Element 51' />
+          <ClassicButton title='Element 5' onClick={() => {}} />
+          <ClassicButton title='Element 51' onClick={() => {}}/>
         </div>
       );
 };
