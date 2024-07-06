@@ -6,6 +6,7 @@ import ListSelected from './ListSelected';
 
 const App = () => {
   const [selected, setSelected] = useState([]);
+  const [saved, setSaved] = useState([])
 
   const handleOnChange = (newIds: number[]) => {
     setSelected(newIds as never);
@@ -23,9 +24,9 @@ const App = () => {
       <div className="items-count">You currently have {selected.length} selected items.</div>
       <ListSelected selected={selected} removeItem={removeItem}/>
       <div className='choice-button'>
-        <ClassicButton title='Change my choice' onClick={() => {}} />
+        <ClassicButton title='Change my choice' onClick={() => setSaved(selected)} />
       </div>
-      <DialogWindow updateSelected={handleOnChange} />
+      <DialogWindow saved={saved} updateSelected={handleOnChange} />
     </div>
   );
 }
