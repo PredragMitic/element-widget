@@ -30,17 +30,10 @@
 
 .list-selected {
   display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   height: 30px;
   margin: 10px 0px 15px 20px;
-}
-
-.list-selected .button {
-  text-align: center;
-  background: #121212;
-  width: 142px;
-  height: 30px;
-  top: 104px;
-  margin-right: 10px;
 }
 
 .choice-button {
@@ -55,4 +48,48 @@
   top: 149px;
   left: 20px;
   padding: 7px 24px 7px 23px;
+}
+
+.selected {
+  display: flex;
+  background: #121212;
+  width: 142px;
+  height: 30px;
+  top: 104px;
+  left: 172px;
+}
+
+.selected-title {
+  color: white;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.41px;
+  text-align: left;
+  margin: 7px 10px;
+}
+
+.close-button {
+  display: flex;
+  margin-left: auto;
+  order: 2;
+  cursor: pointer;
+}
+
+.separator {
+  background: url(./assets/sep.png);
+  width: 1px;
+  height: 18px;
+  rotate: -180 deg;
+  margin-top: 6px;
+}
+
+.x-button {
+  font-family: Inter;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: left;
+  color: white;
+  margin: 8px 12px
 }

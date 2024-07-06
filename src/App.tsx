@@ -13,12 +13,15 @@ const App = () => {
     console.log(newIds)
   };
 
+  const removeItem = (itemId: number) => {
+    setSelected(selected.filter((item) => item !== itemId))
+  }
 
   return (
     <div className="App">
       <div className="select-item-title">Select items</div>
       <div className="items-count">You currently have {selected.length} selected items.</div>
-      <ListSelected />
+      <ListSelected selected={selected} removeItem={removeItem}/>
       <div className='choice-button'>
         <ClassicButton title='Change my choice' onClick={() => {}} />
       </div>

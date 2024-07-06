@@ -1,13 +1,14 @@
 import React from 'react';
-import ClassicButton from './ClassicButton';
+import SelectedItem from './SelectedItem';
 
-const ListSelected = () => {
-    return (
-        <div className="list-selected">
-          <ClassicButton title='Element 5' onClick={() => {}} />
-          <ClassicButton title='Element 51' onClick={() => {}}/>
-        </div>
-      );
+const ListSelected = (prop: { selected: number[], removeItem: (id: number) => void }) => {
+  const content = prop.selected.map((item) =>
+    <SelectedItem key={item} title={`Element ${item + 1}`} onClick={() => prop.removeItem(item)} />
+  )
+
+  return (
+    <div className="list-selected">{content}</div>
+  );
 };
 
 export default ListSelected;
