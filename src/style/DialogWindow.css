@@ -7,6 +7,10 @@
     margin: 30px 20px 15px 20px;
 }
 
+.dialog-header {
+    display: flex;
+}
+
 .select-item-dialog {
     color: white;
     font-family: Roboto;
@@ -15,6 +19,13 @@
     line-height: 21px;
     text-align: left;
     padding: 20px;
+}
+
+.dialog-x {
+    order: 2;
+    margin-left: auto;
+    padding: 10px 4px;
+    cursor: pointer;
 }
 
 .search-bar {
