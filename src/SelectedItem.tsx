@@ -2,8 +2,8 @@ import React from 'react';
 
 interface SelectedItemProps {
   title: string,
-  onClick: () => void,
-  classList?: string
+  classList?: string,
+  onClick: () => void
 }
 
 const SelectedItem = (prop: SelectedItemProps) => {

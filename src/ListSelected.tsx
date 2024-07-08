@@ -6,9 +6,9 @@ interface ListSelectedProps {
   removeItem: (id: number) => void
 }
 
-const ListSelected = (prop: ListSelectedProps) => {
-  const content = Array.from(prop.selected).map((item) =>
-    <SelectedItem key={item} title={`Element ${item}`} onClick={() => prop.removeItem(item)} />
+const ListSelected = ({selected, removeItem}:ListSelectedProps) => {
+  const content = Array.from(selected).map((item) =>
+    <SelectedItem key={item} title={`Element ${item}`} onClick={() => removeItem(item)} />
   )
 
   return (

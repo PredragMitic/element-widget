@@ -1,125 +1,125 @@
 .dialog-window {
-    background: #373737;
-    width: 474px;
-    height: 511px;
-    top: 209px;
-    left: 20px;
-    margin: 30px 20px 15px 20px;
+  background: #373737;
+  width: 474px;
+  height: 511px;
+  top: 209px;
+  left: 20px;
+  margin: 30px 20px 15px 20px;
 }
 
 .dialog-header {
-    display: flex;
+  display: flex;
 }
 
 .select-item-dialog {
-    color: white;
-    font-family: Roboto;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 21px;
-    text-align: left;
-    padding: 20px;
+  color: white;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
+  padding: 20px;
 }
 
 .dialog-x {
-    order: 2;
-    margin-left: auto;
-    padding: 10px 4px;
-    cursor: pointer;
+  order: 2;
+  margin-left: auto;
+  padding: 10px 4px;
+  cursor: pointer;
 }
 
 .search-bar {
-    color: white;
-    display: flex;
-    margin-left: 20px;
-    font-family: Roboto;
-    font-size: 14px;
-    font-weight: 400;
+  color: white;
+  display: flex;
+  margin-left: 20px;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .filter {
-    margin-left: auto;
-    order: 2;
+  margin-left: auto;
+  order: 2;
 }
 
 .search-bar input {
-    margin-left: 10px;
-    width: 150px;
-    height: 20px;
-    border: none;
-    padding: 0;
-    font-family: Roboto;
-    font-size: 12px;
-    font-weight: 400;
-    color: #515151;
+  margin-left: 10px;
+  width: 150px;
+  height: 20px;
+  border: none;
+  padding: 0;
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 400;
+  color: #515151;
 }
 
 .filter>select {
-    margin: 0 20px 0 10px;
-    width: 150px;
-    height: 20px;
-    border: none;
-    font-family: Roboto;
-    font-size: 12px;
-    font-weight: 400;
-    color: #515151;
+  margin: 0 20px 0 10px;
+  width: 150px;
+  height: 20px;
+  border: none;
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 400;
+  color: #515151;
 }
 
 .elements-window {
-    background: #141414;
-    width: 434px;
-    height: 266px;
-    top: 99px;
-    left: 20px;
-    margin: 20px;
-    overflow-y: scroll
+  background: #141414;
+  width: 434px;
+  height: 266px;
+  top: 99px;
+  left: 20px;
+  margin: 20px;
+  overflow-y: scroll
 }
 
 .item {
-    display: flex;
-    gap: 16px;
-    width: 100%;
-    color: white;
-    font-family: Roboto;
-    font-size: 12px;
-    font-weight: 400;
-    text-align: left;
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  color: white;
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: left;
 }
 
 .items-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 10px 20px;
 }
 
 .checkbox-item {
-    margin: 0;
+  margin: 0;
 }
 
 .label-selected {
-    font-family: Roboto;
-    font-size: 14px;
-    font-weight: 400;
-    text-align: left;
-    color: white;
-    margin-left: 20px;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  color: white;
+  margin-left: 20px;
 }
 
 .buttons {
-    display: flex;
+  display: flex;
 }
 
 .buttons * {
-    background: #519F03;
-    width: 90px;
-    height: 30px;
-    top: 149px;
-    left: 20px;
-    padding: 7px 24px 7px 23px;
-    margin-left: 20px;
+  background: #519F03;
+  width: 90px;
+  height: 30px;
+  top: 149px;
+  left: 20px;
+  padding: 7px 24px 7px 23px;
+  margin-left: 20px;
 }
 
 .red-button {
-    background: #9F2903;
+  background: #9F2903;
 }

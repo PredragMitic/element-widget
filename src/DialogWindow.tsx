@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useMemo } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import './style/DialogWindow.css';
 import SearchBar from './SearchBar';
 import ListSelected from './ListSelected';
@@ -14,12 +14,12 @@ export type ItemData = {
 
 
 interface DialogWindowProps {
-  selected: Set<number>;
-  handleClose: () => void;
-  updateSelected: (positions: Set<number>) => void;
+  selected: Set<number>,
+  handleClose: () => void,
+  updateSelected: (positions: Set<number>) => void,
 }
 
-const DialogWindow = ({selected, handleClose, updateSelected}:DialogWindowProps) => {
+const DialogWindow = ({ selected, handleClose, updateSelected }: DialogWindowProps) => {
   const numItems = 300;
   const initialItemsList = useMemo(() => new Array(numItems).fill(0).map((_, i) => ({
     name: `Element ${i + 1}`,
@@ -31,15 +31,11 @@ const DialogWindow = ({selected, handleClose, updateSelected}:DialogWindowProps)
   // Array of checkbox states
   const [items, setItemsState] = useState(initialItemsList);
 
+  // Array of checked items ids
   const [checked, setChecked] = useState(new Set(selected))
 
+  // State of all checkboxes
   const [enabled, setEnabled] = useState(true);
-
-  console.log("Dialog render")
-
-  useEffect(() => {
-    console.log(initialItemsList)
-  }, [])
 
   const handleOnChange = useCallback((id: number, state: boolean) => {
     if (!state) {
@@ -80,39 +76,39 @@ const DialogWindow = ({selected, handleClose, updateSelected}:DialogWindowProps)
     })
   }
 
-    return (
-      <div className={'dialog-window'}>
-        <div className='dialog-header'>
-          <div className="select-item-dialog">Select items</div>
-          <div className='x-button dialog-x' onClick={handleClose}>X</div>
-        </div>
-        <SearchBar applyFilters={applyFilters} />
-        <div className="elements-window">
-          <ItemsList
-            updateSelected={handleOnChange}
-            selected={checked}
-            items={items}
-            enabled={enabled}
-          />
-        </div>
-        <div className="label-selected">Current selected items:</div>
-        <ListSelected
-          selected={checked}
-          removeItem={unselectItem}
-        />
-        <div className='buttons'>
-          <ClassicButton title='Save' onClick={() => {
-            updateSelected(checked)
-            handleClose()
-          }} />
-          <ClassicButton
-            title='Cancel'
-            classList='red-button'
-            onClick={handleClose}
-          />
-        </div>
+  return (
+    <div className={'dialog-window'}>
+      <div className='dialog-header'>
+        <div className="select-item-dialog">Select items</div>
+        <div className='x-button dialog-x' onClick={handleClose}>X</div>
       </div>
-    );
-  };
+      <SearchBar applyFilters={applyFilters} />
+      <div className="elements-window">
+        <ItemsList
+          updateSelected={handleOnChange}
+          selected={checked}
+          items={items}
+          enabled={enabled}
+        />
+      </div>
+      <div className="label-selected">Current selected items:</div>
+      <ListSelected
+        selected={checked}
+        removeItem={unselectItem}
+      />
+      <div className='buttons'>
+        <ClassicButton title='Save' onClick={() => {
+          updateSelected(checked)
+          handleClose()
+        }} />
+        <ClassicButton
+          title='Cancel'
+          classList='red-button'
+          onClick={handleClose}
+        />
+      </div>
+    </div>
+  );
+};
 
-  export default DialogWindow;
+export default DialogWindow;

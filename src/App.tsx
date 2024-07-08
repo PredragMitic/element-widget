@@ -33,7 +33,7 @@ const App = () => {
       <div className='choice-button'>
         <ClassicButton title='Change my choice' onClick={changeChoice} />
       </div>
-      { dialogState && <DialogWindow
+      {dialogState && <DialogWindow
         selected={selected}
         handleClose={handleClose}
         updateSelected={handleOnChange}
@@ -41,6 +41,5 @@ const App = () => {
     </div>
   );
 }
-
 
 export default App;

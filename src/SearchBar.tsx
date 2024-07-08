@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
 
-interface SearchBarProps {
-  applyFilters: (searchWord: string, filterLimit: number) => void,
-}
-
-const SearchBar = (prop: SearchBarProps) => {
+const SearchBar = ({ applyFilters }: { applyFilters: (searchWord: string, filterLimit: number) => void }) => {
   const [searchWord, setSearchWord] = useState('');
   const [filterLimit, setFilterLimit] = useState(0);
 
   const handleSearchChange = (e: React.FormEvent<HTMLInputElement>) => {
     const word = e.currentTarget.value
     setSearchWord(word);
-    prop.applyFilters(word, filterLimit);
+    applyFilters(word, filterLimit);
   }
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const limit = Number(e.currentTarget.value)
     setFilterLimit(limit);
-    prop.applyFilters(searchWord, limit);
+    applyFilters(searchWord, limit);
   }
 
   return (

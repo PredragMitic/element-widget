@@ -2,15 +2,15 @@ import React from 'react';
 
 interface ClassicButtonProps {
   title: string,
-  onClick: () => void,
-  classList?: string
+  classList?: string,
+  onClick: () => void
 }
 
-const ClassicButton = (prop: ClassicButtonProps) => {
-  const classes = 'button '.concat(prop.classList || '');
+const ClassicButton = ({ title, classList, onClick }: ClassicButtonProps) => {
+  const classes = 'button '.concat(classList || '');
 
   return (
-    <button className={classes} onClick={prop.onClick}> {prop.title} </button>
+    <button className={classes} onClick={onClick}> {title} </button>
   );
 };
 
