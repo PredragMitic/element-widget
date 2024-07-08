@@ -1,6 +1,12 @@
 import React from 'react';
 
-const SelectedItem = (prop: { title: string, onClick: () => void, classList?: string }) => {
+interface SelectedItemProps {
+  title: string,
+  onClick: () => void,
+  classList?: string
+}
+
+const SelectedItem = (prop: SelectedItemProps) => {
   const classes = 'selected '.concat(prop.classList || '');
 
   return (

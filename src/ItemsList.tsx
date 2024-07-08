@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import Item from './Item';
 import { ItemData } from './DialogWindow';
 
-const ItemsList = (prop: { updateSeleced: (position: number) => void, items: ItemData[], limit: boolean }) => {
-  const items = prop.items.map((item, ind) => <Item
-    key={ind}
-    itemData={item}
-    updateSeleced={() => prop.updateSeleced(ind)}
-  />)
+interface ItemsListProps {
+  updateSeleced: (position: number) => void,
+  items: ItemData[],
+  limit: boolean
+}
 
+const ItemsList = (prop: ItemsListProps) => {
+  
+  const updateSelected = useCallback( (ind: number) => {
+    prop.updateSeleced(ind)
+  }, [])
+
+  console.log('render2')
+  
   return (
-    <div className="items-list">{items}</div>
+    <div className="items-list">{
+      prop.items.map((item, ind) => <Item
+        key={ind}
+        itemData={item}
+        updateSeleced={() => updateSelected(ind)}
+      />)
+    }</div>
   );
 };
 
-export default ItemsList;
+export default memo(ItemsList);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './style/DialogWindow.css';
 import SearchBar from './SearchBar';
 import ListSelected from './ListSelected';
@@ -6,24 +6,29 @@ import ClassicButton from './ClassicButton';
 import ItemsList from './ItemsList';
 
 export type ItemData = {
-  name: string
-  selected: boolean
-  enabled: boolean
-  visible: boolean
+  name: string;
+  selected: boolean;
+  enabled: boolean;
+  visible: boolean;
+  id: number;
 }
 
-const DialogWindow = (prop: {
+const numItems = 300;
+const initialItemsList = new Array(numItems).fill(0).map((_, i) => ({
+  name: `Element ${i + 1}`,
+  selected: false,
+  enabled: true,
+  visible: true,
+  id: i + 1,
+}) as ItemData)
+
+interface DialogWindowProps {
   visible: { show: boolean },
   handleClose: () => void
   updateSelected: (positions: number[]) => void
-}) => {
-  const numItems = 300;
-  const initialItemsList = new Array(numItems).fill(0).map((_, i) => ({
-    name: `Element ${i + 1}`,
-    selected: false,
-    enabled: true,
-    visible: true
-  }) as ItemData)
+}
+
+const DialogWindow = (prop: DialogWindowProps) => {
 
   // Array of checkbox states
   const [items, setItemsState] = useState(initialItemsList);
@@ -31,7 +36,7 @@ const DialogWindow = (prop: {
   // Array of selected elements
   const [selected, setSelected] = useState([]);
 
-  const handleOnChange = (position: number) => {
+  const handleOnChange = useCallback( (position: number) => {
     if (selected.length < 3 || items[position].selected) {
       if (!items[position].selected) {
         setSelected([...selected, position] as never);
@@ -47,53 +52,33 @@ const DialogWindow = (prop: {
       setItemsState(items);
     }
 
-    if (selected.length === 2) {
-      const newItems = [...items]
-      newItems.forEach((item) => {
+    const newItems = [...items]
+    newItems.forEach((item) => {
 
-        if (!item.selected) item.enabled = false
-      });
-      setItemsState(newItems)
-    }
+      if (!item.selected && selected.length === 2) item.enabled = false
+      else item.enabled = true
+    });
+    setItemsState(newItems)
+
 
     console.log(selected)
-  };
+  }, [selected, items] );
 
   const unselectItem = (itemId: number) => {
     setSelected(selected.filter((item) => item !== itemId))
     const newItems = [...items]
     newItems.forEach((item, i) => {
       if (i === itemId) item.selected = false;
+      item.enabled = true
     });
     setItemsState(newItems)
   }
 
-  const showItemsBySubstring = (substring: string) => {
-    const newItems = [...items]
-    newItems.forEach((item) => {
-      if (item.name.includes(substring)) item.visible = true;
-      else item.visible = false;
-    });
+
+  const applyFilters = (searchWord: string, filterLimit: number) => {
+    const newItems = initialItemsList.filter((item) => item.name.includes(searchWord) && item.id > filterLimit);
 
     setItemsState(newItems)
-  }
-
-  const handleSearchChange = (e: React.FormEvent<HTMLInputElement>) => {
-    showItemsBySubstring(e.currentTarget.value);
-  }
-
-  const showItemsBigerThen = (limit: number) => {
-    const newItems = [...items]
-    newItems.forEach((item, i) => {
-      if (i >= limit - 1) item.visible = true;
-      else item.visible = false;
-    });
-
-    setItemsState(newItems)
-  }
-
-  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    showItemsBigerThen(Number(e.currentTarget.value));
   }
 
   return (
@@ -102,14 +87,17 @@ const DialogWindow = (prop: {
         <div className="select-item-dialog">Select items</div>
         <div className='x-button dialog-x' onClick={prop.handleClose}>X</div>
       </div>
-      <SearchBar handleSearchChange={handleSearchChange} handleFilterChange={handleFilterChange} />
+      <SearchBar applyFilters={applyFilters} />
       <div className="elements-window">
         <ItemsList updateSeleced={handleOnChange} items={items} limit={selected.length === 3} />
       </div>
       <div className="label-selected">Current selected items:</div>
       <ListSelected selected={selected} removeItem={unselectItem} />
       <div className='buttons'>
-        <ClassicButton title='Save' onClick={() => prop.updateSelected(selected)} />
+        <ClassicButton title='Save' onClick={() => {
+          prop.updateSelected(selected)
+          prop.handleClose()
+          }} />
         <ClassicButton title='Cancel' classList='red-button' onClick={prop.handleClose} />
       </div>
     </div>

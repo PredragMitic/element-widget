@@ -1,7 +1,12 @@
 import React from 'react';
 import SelectedItem from './SelectedItem';
 
-const ListSelected = (prop: { selected: number[], removeItem: (id: number) => void }) => {
+interface ListSelectedProps {
+  selected: number[],
+  removeItem: (id: number) => void
+}
+
+const ListSelected = (prop: ListSelectedProps) => {
   const content = prop.selected.map((item) =>
     <SelectedItem key={item} title={`Element ${item + 1}`} onClick={() => prop.removeItem(item)} />
   )

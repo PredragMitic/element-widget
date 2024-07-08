@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { ItemData } from './DialogWindow';
 
-const Item = (prop: {key: number, itemData: ItemData, updateSeleced: () => void}) => {
+interface ItemProps { 
+  key: number, 
+  itemData: ItemData, 
+  updateSeleced: () => void
+}
+
+const Item = (prop: ItemProps) => {
+  console.log('render')
+
   return (
-        <div className={prop.itemData.visible ? 'item' : 'disabled'}>
-          <input 
-            type="checkbox" 
-            className='checkbox-item' 
-            checked={prop.itemData.selected} 
-            disabled={!prop.itemData.enabled} 
-            onChange={() => prop.updateSeleced()} />
-          <label> {prop.itemData.name}</label>
-        </div>
-      );
+    <div className={prop.itemData.visible ? 'item' : 'disabled'}>
+      <input
+        type="checkbox"
+        className='checkbox-item'
+        checked={prop.itemData.selected}
+        disabled={!prop.itemData.enabled}
+        onChange={() => prop.updateSeleced()} />
+      <label> {prop.itemData.name}</label>
+    </div>
+  );
 };
 
-export default Item;
+export default memo(Item);

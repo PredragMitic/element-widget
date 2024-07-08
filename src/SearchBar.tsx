@@ -1,18 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const SearchBar = (prop: {
-  handleSearchChange: (e: React.FormEvent<HTMLInputElement>) => void
-  handleFilterChange: (e: React.ChangeEvent<HTMLSelectElement>) => unknown
-}) => {
+interface SearchBarProps {
+  applyFilters: (searchWord: string, filterLimit: number) => void,
+}
+
+const SearchBar = (prop: SearchBarProps) => {
+  const [searchWord, setSearchWord] = useState('');
+  const [filterLimit, setFilterLimit] = useState(0);
+
+  const handleSearchChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const word = e.currentTarget.value
+    setSearchWord(word);
+    prop.applyFilters(word, filterLimit);
+  }
+
+  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const limit = Number(e.currentTarget.value)
+    setFilterLimit(limit);
+    prop.applyFilters(searchWord, limit);
+  }
+
   return (
     <div className="search-bar">
-      <label  className='search'>
+      <label className='search'>
         Search
-        <input className="search-input" onChange={prop.handleSearchChange}/>
+        <input className="search-input" onChange={handleSearchChange} />
       </label>
-      <label  className='filter'>
+      <label className='filter'>
         Filter
-        <select className="filter-input" onChange={(e) => prop.handleFilterChange(e)}>
+        <select className="filter-input" onChange={(e) => handleFilterChange(e)}>
           <option value="" hidden>No filter</option>
           <option value="10"> &gt;10 </option>
           <option value="100"> &gt;100 </option>
