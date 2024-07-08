@@ -6,7 +6,7 @@ import ListSelected from './ListSelected';
 
 const App = () => {
   const [selected, setSelected] = useState(new Set<number>());
-  const [dialogState, setDialogState] = useState({ show: true });
+  const [dialogState, setDialogState] = useState(true);
 
   const handleOnChange = (newIds: Set<number>) => {
     setSelected(new Set(newIds));
@@ -18,11 +18,11 @@ const App = () => {
   }
 
   const changeChoice = () => {
-    setDialogState({ show: true })
+    setDialogState(true)
   }
 
   const handleClose = () => {
-    setDialogState({ show: false })
+    setDialogState(false)
   }
 
   return (
@@ -33,12 +33,11 @@ const App = () => {
       <div className='choice-button'>
         <ClassicButton title='Change my choice' onClick={changeChoice} />
       </div>
-      <DialogWindow
-        visible={dialogState}
+      { dialogState && <DialogWindow
         selected={selected}
         handleClose={handleClose}
         updateSelected={handleOnChange}
-      />
+      />}
     </div>
   );
 }

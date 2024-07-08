@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { ItemData } from './DialogWindow';
 
 interface ItemProps { 
@@ -6,15 +6,23 @@ interface ItemProps {
   itemData: ItemData, 
   enabled: boolean,
   checked: boolean,
-  updateSelected: (id: number) => void
+  updateSelected: (id: number, state: boolean) => void
 }
 
 const Item = (prop: ItemProps) => {
   const [selected, setSelected] = useState(prop.checked);
 
+  useEffect(
+    () => {
+      console.log('Eff', prop.checked)
+      setSelected(prop.checked)
+    },
+    [prop.checked]
+  )
+
   const onChange = (id: number) => {
     setSelected((prev: unknown) => !prev);
-    prop.updateSelected(id);
+    prop.updateSelected(id, !selected);
   };
 
   console.log('render')

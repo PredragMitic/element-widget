@@ -3,23 +3,23 @@ import Item from './Item';
 import { ItemData } from './DialogWindow';
 
 interface ItemsListProps {
-  updateSelected: (position: number) => void,
-  checkedList: boolean[],
+  updateSelected: (position: number, state: boolean) => void,
   items: ItemData[]
-  enabled: boolean
+  enabled: boolean,
+  selected: Set<number>
 }
 
 const ItemsList = (prop: ItemsListProps) => {
   console.log('render items list');
   const renderItems = prop.items.map(
-    (item, ind) => {
+    (item) => {
       return item.visible && (
         <Item
           key={item.id}
           itemData={item}
           enabled={prop.enabled}
-          checked={prop.checkedList[ind]}
-          updateSelected={() => prop.updateSelected(ind)}
+          checked={prop.selected.has(item.id)}
+          updateSelected={prop.updateSelected}
         />
       )
     }
