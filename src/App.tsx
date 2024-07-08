@@ -5,36 +5,40 @@ import DialogWindow from './DialogWindow';
 import ListSelected from './ListSelected';
 
 const App = () => {
-  const [selected, setSelected] = useState([]);
-  const [dialogState, setDialogState] = useState({show: false});
+  const [selected, setSelected] = useState(new Set<number>());
+  const [dialogState, setDialogState] = useState({ show: true });
 
-  const handleOnChange = (newIds: number[]) => {
-    setSelected(newIds as never);
-
-    console.log(newIds)
+  const handleOnChange = (newIds: Set<number>) => {
+    setSelected(new Set(newIds));
   };
 
   const removeItem = (itemId: number) => {
-    setSelected(selected.filter((item) => item !== itemId))
+    selected.delete(itemId)
+    setSelected(new Set(selected))
   }
 
   const changeChoice = () => {
-    setDialogState({show: true})
-  } 
+    setDialogState({ show: true })
+  }
 
   const handleClose = () => {
-    setDialogState({show: false})
+    setDialogState({ show: false })
   }
 
   return (
     <div className="App">
       <div className="select-item-title">Select items</div>
-      <div className="items-count">You currently have {selected.length} selected items.</div>
-      <ListSelected selected={selected} removeItem={removeItem}/>
+      <div className="items-count">You currently have {selected.size} selected items.</div>
+      <ListSelected selected={selected} removeItem={removeItem} />
       <div className='choice-button'>
         <ClassicButton title='Change my choice' onClick={changeChoice} />
       </div>
-      <DialogWindow visible={dialogState} handleClose={handleClose} updateSelected={handleOnChange} />
+      <DialogWindow
+        visible={dialogState}
+        selected={selected}
+        handleClose={handleClose}
+        updateSelected={handleOnChange}
+      />
     </div>
   );
 }

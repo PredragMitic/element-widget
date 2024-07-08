@@ -1,30 +1,31 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import Item from './Item';
 import { ItemData } from './DialogWindow';
 
 interface ItemsListProps {
-  updateSeleced: (position: number) => void,
-  items: ItemData[],
-  limit: boolean
+  updateSelected: (position: number) => void,
+  checkedList: boolean[],
+  items: ItemData[]
+  enabled: boolean
 }
 
 const ItemsList = (prop: ItemsListProps) => {
-  
-  const updateSelected = useCallback( (ind: number) => {
-    prop.updateSeleced(ind)
-  }, [])
-
-  console.log('render2')
-  
-  return (
-    <div className="items-list">{
-      prop.items.map((item, ind) => <Item
-        key={ind}
-        itemData={item}
-        updateSeleced={() => updateSelected(ind)}
-      />)
-    }</div>
+  console.log('render items list');
+  const renderItems = prop.items.map(
+    (item, ind) => {
+      return item.visible && (
+        <Item
+          key={item.id}
+          itemData={item}
+          enabled={prop.enabled}
+          checked={prop.checkedList[ind]}
+          updateSelected={() => prop.updateSelected(ind)}
+        />
+      )
+    }
   );
+
+  return <div className='items-list'>{renderItems}</div>;
 };
 
 export default memo(ItemsList);

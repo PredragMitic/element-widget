@@ -2,12 +2,12 @@ import React from 'react';
 import SelectedItem from './SelectedItem';
 
 interface ListSelectedProps {
-  selected: number[],
+  selected: Set<number>,
   removeItem: (id: number) => void
 }
 
 const ListSelected = (prop: ListSelectedProps) => {
-  const content = prop.selected.map((item) =>
+  const content = Array.from(prop.selected).map((item) =>
     <SelectedItem key={item} title={`Element ${item + 1}`} onClick={() => prop.removeItem(item)} />
   )
 

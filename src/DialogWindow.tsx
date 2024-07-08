@@ -7,8 +7,6 @@ import ItemsList from './ItemsList';
 
 export type ItemData = {
   name: string;
-  selected: boolean;
-  enabled: boolean;
   visible: boolean;
   id: number;
 }
@@ -16,67 +14,69 @@ export type ItemData = {
 const numItems = 300;
 const initialItemsList = new Array(numItems).fill(0).map((_, i) => ({
   name: `Element ${i + 1}`,
-  selected: false,
-  enabled: true,
   visible: true,
   id: i + 1,
 }) as ItemData)
 
 interface DialogWindowProps {
-  visible: { show: boolean },
-  handleClose: () => void
-  updateSelected: (positions: number[]) => void
+  visible: { show: boolean };
+  selected: Set<number>;
+  handleClose: () => void;
+  updateSelected: (positions: Set<number>) => void;
 }
 
 const DialogWindow = (prop: DialogWindowProps) => {
-
   // Array of checkbox states
   const [items, setItemsState] = useState(initialItemsList);
 
-  // Array of selected elements
-  const [selected, setSelected] = useState([]);
+  const [checked, setChecked] = useState(new Set(prop.selected))
 
-  const handleOnChange = useCallback( (position: number) => {
-    if (selected.length < 3 || items[position].selected) {
-      if (!items[position].selected) {
-        setSelected([...selected, position] as never);
-      }
-      else {
-        setSelected(selected.filter((e) => e !== position));
-      }
+  const [checkedList, setCheckedList] = useState(new Array(numItems).fill(false));
 
-      items.forEach((item, i) => {
-        if (i === position) item.selected = !item.selected
-        item.enabled = true
-      });
-      setItemsState(items);
+  const [enabled, setEnabled] = useState(true);
+
+  console.log("Dialog render")
+
+  const handleOnChange = useCallback((id: number) => {
+    if (checkedList[id]) {
+      if (checked.size === 3) {
+        setEnabled(true);
+      }
+      checked.delete(id)
+      checkedList[id] = false
+    }
+    else if (checked.size < 3) {
+      checked.add(id)
+      checkedList[id] = true
     }
 
-    const newItems = [...items]
-    newItems.forEach((item) => {
+    if (checked.size === 3) {
+      setEnabled(false);
+    }
 
-      if (!item.selected && selected.length === 2) item.enabled = false
-      else item.enabled = true
-    });
-    setItemsState(newItems)
+    setCheckedList(checkedList)
 
+    setItemsState(items)
+    setChecked(new Set(checked));
+  }, [items, checkedList]);
 
-    console.log(selected)
-  }, [selected, items] );
+  const unselectItem = useCallback((itemId: number) => {
+    if (checked.size === 3) setEnabled(true);
 
-  const unselectItem = (itemId: number) => {
-    setSelected(selected.filter((item) => item !== itemId))
-    const newItems = [...items]
-    newItems.forEach((item, i) => {
-      if (i === itemId) item.selected = false;
-      item.enabled = true
-    });
-    setItemsState(newItems)
-  }
+    checked.delete(itemId)
+    setChecked(new Set(checked))
 
+    setCheckedList(checkedList.map((e, i) => i !== itemId ? e : !e));
+  }, [checkedList]);
 
   const applyFilters = (searchWord: string, filterLimit: number) => {
-    const newItems = initialItemsList.filter((item) => item.name.includes(searchWord) && item.id > filterLimit);
+    const newItems = items.map((item) => {
+      if (item.name.includes(searchWord) && item.id > filterLimit)
+        item.visible = true
+      else
+        item.visible = false
+      return item
+    });
 
     setItemsState(newItems)
   }
@@ -89,16 +89,28 @@ const DialogWindow = (prop: DialogWindowProps) => {
       </div>
       <SearchBar applyFilters={applyFilters} />
       <div className="elements-window">
-        <ItemsList updateSeleced={handleOnChange} items={items} limit={selected.length === 3} />
+        <ItemsList
+          updateSelected={handleOnChange}
+          checkedList={checkedList}
+          items={items}
+          enabled={enabled}
+        />
       </div>
       <div className="label-selected">Current selected items:</div>
-      <ListSelected selected={selected} removeItem={unselectItem} />
+      <ListSelected
+        selected={checked}
+        removeItem={unselectItem}
+      />
       <div className='buttons'>
         <ClassicButton title='Save' onClick={() => {
-          prop.updateSelected(selected)
+          prop.updateSelected(checked)
           prop.handleClose()
-          }} />
-        <ClassicButton title='Cancel' classList='red-button' onClick={prop.handleClose} />
+        }} />
+        <ClassicButton
+          title='Cancel'
+          classList='red-button'
+          onClick={prop.handleClose}
+        />
       </div>
     </div>
   );

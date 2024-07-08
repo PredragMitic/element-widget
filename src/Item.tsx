@@ -1,23 +1,32 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { ItemData } from './DialogWindow';
 
 interface ItemProps { 
-  key: number, 
+  key: number,
   itemData: ItemData, 
-  updateSeleced: () => void
+  enabled: boolean,
+  checked: boolean,
+  updateSelected: (id: number) => void
 }
 
 const Item = (prop: ItemProps) => {
+  const [selected, setSelected] = useState(prop.checked);
+
+  const onChange = (id: number) => {
+    setSelected((prev: unknown) => !prev);
+    prop.updateSelected(id);
+  };
+
   console.log('render')
 
   return (
-    <div className={prop.itemData.visible ? 'item' : 'disabled'}>
+    <div className='item'>
       <input
         type="checkbox"
         className='checkbox-item'
-        checked={prop.itemData.selected}
-        disabled={!prop.itemData.enabled}
-        onChange={() => prop.updateSeleced()} />
+        checked={selected}
+        disabled={!(prop.enabled || selected)}
+        onChange={() => onChange(prop.itemData.id)} />
       <label> {prop.itemData.name}</label>
     </div>
   );
