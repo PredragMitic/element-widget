@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useState, useMemo, useEffect } from 'react';
 import './style/DialogWindow.css';
 import SearchBar from './SearchBar';
 import ListSelected from './ListSelected';
@@ -36,6 +36,10 @@ const DialogWindow = ({ selected, handleClose, updateSelected }: DialogWindowPro
 
   // State of all checkboxes
   const [enabled, setEnabled] = useState(true);
+
+  useEffect(() => {
+    if (checked.size === 3) setEnabled(false);
+  }, [])
 
   const handleOnChange = useCallback((id: number, state: boolean) => {
     if (!state) {
