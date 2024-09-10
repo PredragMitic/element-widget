@@ -9,13 +9,6 @@ import ItemsList from './ItemsList';
 export const numItems = 300;
 export const itemsNames = new Array(numItems).fill(0).map((_, i) => `Element ${i + 1}`)
 
-export type ItemData = {
-  name: string;
-  visible: boolean;
-  id: number;
-  checked: boolean
-}
-
 interface DialogWindowProps {
   selected: Set<number>,
   handleClose: () => void,
