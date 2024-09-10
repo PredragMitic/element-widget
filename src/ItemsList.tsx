@@ -1,23 +1,22 @@
 import React, { memo } from 'react';
 import Item from './Item';
-import { ItemData } from './DialogWindow';
 
 interface ItemsListProps {
-  items: ItemData[],
+  visible: boolean[],
   enabled: boolean,
   selected: Set<number>,
   updateSelected: (position: number, state: boolean) => void
 }
 
-const ItemsList = ({items, enabled, selected, updateSelected}: ItemsListProps) => {
-  const renderItems = items.map(
-    (item) => {
-      return item.visible && (
+const ItemsList = ({visible, enabled, selected, updateSelected}: ItemsListProps) => {
+  const renderItems = visible.map(
+    (item, i) => {
+      return item && (
         <Item
-          key={item.id}
-          itemData={item}
+          key={i}
+          id={i}
           enabled={enabled}
-          checked={selected.has(item.id)}
+          checked={selected.has(i)}
           updateSelected={updateSelected}
         />
       )

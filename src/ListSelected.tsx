@@ -1,5 +1,6 @@
 import React from 'react';
 import SelectedItem from './SelectedItem';
+import { itemsNames } from './DialogWindow';
 
 interface ListSelectedProps {
   selected: Set<number>,
@@ -7,8 +8,8 @@ interface ListSelectedProps {
 }
 
 const ListSelected = ({selected, removeItem}:ListSelectedProps) => {
-  const content = Array.from(selected).map((item) =>
-    <SelectedItem key={item} title={`Element ${item}`} onClick={() => removeItem(item)} />
+  const content = Array.from(selected).map((item, i) =>
+    <SelectedItem key={item} title={itemsNames[i]} onClick={() => removeItem(item)} />
   )
 
   return (
