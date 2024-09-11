@@ -1,15 +1,14 @@
 import React, { memo, useEffect, useState } from 'react';
-import { ItemData } from './DialogWindow';
+import { itemsNames } from './DialogWindow';
 
 interface ItemProps {
-  key: number,
-  itemData: ItemData,
+  id: number,
   enabled: boolean,
   checked: boolean,
   updateSelected: (id: number, state: boolean) => void
 }
 
-const Item = ({ itemData, enabled, checked, updateSelected }: ItemProps) => {
+const Item = ({id, enabled, checked, updateSelected }: ItemProps) => {
   const [selected, setSelected] = useState(checked);
 
   useEffect(
@@ -31,8 +30,8 @@ const Item = ({ itemData, enabled, checked, updateSelected }: ItemProps) => {
         className='checkbox-item'
         checked={selected}
         disabled={!(enabled || selected)}
-        onChange={() => onChange(itemData.id)} />
-      <label> {itemData.name}</label>
+        onChange={() => onChange(id)} />
+      <label> {itemsNames[id]}</label>
     </div>
   );
 };

@@ -5,13 +5,9 @@ import ListSelected from './ListSelected';
 import ClassicButton from './ClassicButton';
 import ItemsList from './ItemsList';
 
-export type ItemData = {
-  name: string;
-  visible: boolean;
-  id: number;
-  checked: boolean
-}
-
+// This is global variables
+export const numItems = 300;
+export const itemsNames = new Array(numItems).fill(0).map((_, i) => `Element ${i + 1}`)
 
 interface DialogWindowProps {
   selected: Set<number>,
@@ -20,16 +16,12 @@ interface DialogWindowProps {
 }
 
 const DialogWindow = ({ selected, handleClose, updateSelected }: DialogWindowProps) => {
-  const numItems = 300;
-  const initialItemsList = useMemo(() => new Array(numItems).fill(0).map((_, i) => ({
-    name: `Element ${i + 1}`,
-    visible: true,
-    id: i + 1,
-    checked: false
-  }) as ItemData), [])
+
+  const initialItemsList = useMemo(() => itemsNames.map(() => true), [])
 
   // Array of checkbox states
-  const [items, setItemsState] = useState(initialItemsList);
+  const [visible, setVisibleState] = useState(initialItemsList);
+
 
   // Array of checked items ids
   const [checked, setChecked] = useState(new Set(selected))
@@ -57,7 +49,7 @@ const DialogWindow = ({ selected, handleClose, updateSelected }: DialogWindowPro
     }
 
     setChecked(new Set(checked));
-  }, [items]);
+  }, [visible]);
 
   const unselectItem = useCallback((itemId: number) => {
     if (checked.size === 3) setEnabled(true);
@@ -67,17 +59,14 @@ const DialogWindow = ({ selected, handleClose, updateSelected }: DialogWindowPro
   }, []);
 
   const applyFilters = (searchWord: string, filterLimit: number) => {
-
-    setItemsState((items) => {
-      const newItems = items.map((item) => {
-        if (item.name.includes(searchWord) && item.id > filterLimit)
-          item.visible = true
+    setVisibleState(
+      itemsNames.map((name, i) => {
+        if (name.includes(searchWord) && i > filterLimit)
+          return true;
         else
-          item.visible = false
-        return item
+          return false;
       })
-      return newItems
-    })
+    )
   }
 
   return (
@@ -91,7 +80,7 @@ const DialogWindow = ({ selected, handleClose, updateSelected }: DialogWindowPro
         <ItemsList
           updateSelected={handleOnChange}
           selected={checked}
-          items={items}
+          visible={visible}
           enabled={enabled}
         />
       </div>
